@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Book Recomender</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+</head>
+<style>
+    .text-white{
+        color:white
+    }
+</style>
+<body style = "background-color:black">
+  <nav class ="navbar" style = "background-color:#6699cc">
+    <a class="navbar-brand">My Book recommender</a>
+    <ul class="nav navbar-nav">
+        <li><a href="/">Home</a></li>
+        <li><a href="/recommend">Recommend</a></li>
+        <li><a>Contact</a></li>
+    </ul>
+  </nav>
+  <div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h1 class="text-white" style="font-size:50px">Recommend Books</h1>
+            <form action="/recommend_books" method="post">
+                {% csrf_token %}
+                <input name="user_input" type="text" class="form-control"><br>
+                <input type="submit" class="btn btn-lg btn-warning">
+            </form>
+        </div>
+
+        {% if data %}
+    <h2>Recommended Books for "{{ user_input }}"</h2>
+    <div class="row">
+        {% for item in data %}
+            <div class="col-md-3" style="margin-top: 20px;">
+                <div class="card">
+                    <img class="card-img-top" src="{{ item.image_url }}" alt="{{ item.title }}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ item.title }}</h5>
+                        <p class="card-text">{{ item.author }}</p>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}
+
+
+
+
+    </div>
+</div>
+
+</body>
+</html>
+  
